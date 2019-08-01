@@ -9,7 +9,7 @@ References:
 
 (1) Koll & Cronin, 2018, https://doi.org/10.1073/pnas.1809868115.
 
-(2) Koll & Cronin, 2019, The Astrophysical Journal.
+(2) Koll & Cronin, 2019, https://arxiv.org/abs/1907.13169.
 
 (3) Stamnes et al, 1988, Applied Optics.
 
