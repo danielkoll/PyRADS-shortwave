@@ -40,7 +40,7 @@ if __name__ == '__main__':
                                                  utau=uTau, umu=umu, phi=phi, prnt=prnt)
 
     rfltot = rfldir + rfldn
-    print '\n# Energy conservation, R(TOA)+T(BOA)*(1-albedo) ~ 1:  %.3f' % (flup[0] + rfltot[-1]*(1.-albedo))
+    print( '\n# Energy conservation, R(TOA)+T(BOA)*(1-albedo) ~ 1:  %.3f' % (flup[0] + rfltot[-1]*(1.-albedo)) )
 
     plt.figure()
     plt.plot(rfltot, z_atm)
