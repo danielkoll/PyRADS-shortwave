@@ -7,9 +7,9 @@ This version of PyRADS tackles shortwave calculations using the DISORT radiative
 
 References:
 
-(1) Koll & Cronin, 2018, https://doi.org/10.1073/pnas.1809868115.
+(1) Koll & Cronin, 2018, PNAS, https://doi.org/10.1073/pnas.1809868115.
 
-(2) Koll & Cronin, 2019, https://arxiv.org/abs/1907.13169.
+(2) Koll & Cronin, 2019, The Astrophysical Journal, https://iopscience.iop.org/article/10.3847/1538-4357/ab30c4/meta.
 
 (3) Stamnes et al, 1988, Applied Optics.
 
@@ -90,4 +90,4 @@ For the pyDISORT radiation solver: see https://github.com/chanGimeno/pyDISORT.
 For the Python 3 version of pyDISORT: see https://github.com/danielkoll/PyDISORT3
 
 # Acknowledgements
-PyRADS makes use of HITRAN 2016 line lists (http://hitran.org/), AER's MTCKD continuum model (http://rtweb.aer.com/continuum_frame.html), and the PyTran script published by Ray Pierrehumbert as part of the courseware for "Principles of Planetary Climates" (https://geosci.uchicago.edu/~rtp1/PrinciplesPlanetaryClimate/). Brian Rose (http://www.atmos.albany.edu/facstaff/brose/) has helped improve the code. The SW version of PyRADS uses DISORT, developed by Stamnes et al, and the pyDISORT wrapper, developed by chanGimeno (https://github.com/chanGimeno/pyDISORT).
+PyRADS makes use of HITRAN 2016 line lists (http://hitran.org/), AER's MTCKD continuum model (http://rtweb.aer.com/continuum_frame.html), and the PyTran script published by Ray Pierrehumbert as part of the courseware for "Principles of Planetary Climates" (https://geosci.uchicago.edu/~rtp1/PrinciplesPlanetaryClimate/). The SW version of PyRADS uses DISORT, developed by Stamnes et al, and the pyDISORT wrapper, developed by chanGimeno (https://github.com/chanGimeno/pyDISORT). Brian Rose (http://www.atmos.albany.edu/facstaff/brose/), Andrew Williams (https://andrewilwilliams.github.io/), and Zhiping Zhang have improved the code. 
