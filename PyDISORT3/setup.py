@@ -3,6 +3,8 @@
 # Adapted from setup.py from CliMT project
 # ------------------------------------------------------
 
+from __future__ import print_function
+
 import os
 import sys
 import glob
@@ -17,7 +19,7 @@ direct = f2py_path
 while 1:
     base = os.path.basename(direct)
     if base=='':
-        print '*f2py* not found in your python installation'
+        print( '*f2py* not found in your python installation' )
         raise SystemExit(0)
     direct = os.path.dirname(direct)
     if base=='lib' or base=='lib64':
@@ -40,7 +42,7 @@ for i in range(len(sys.argv)):
     if '--fcompiler' in sys.argv[i]:
         compiler = sys.argv.pop(i)
         compiler = compiler[compiler.index('=')+1:]
-print 'Using %s compiler' % compiler
+print( 'Using %s compiler' % compiler )
 
 # set some fortran compiler-dependent flags
 if compiler == 'gnu95' or compiler == 'gnu':
@@ -55,7 +57,7 @@ elif compiler == 'ibm':
     f77flags='-qautodbl=dbl4 -qsuffix=f=f:cpp=F -qfixed=132'
     f90flags='-qautodbl=dbl4 -qsuffix=f=f90:cpp=F90 -qfree=f90'
 else:
-    print 'Sorry, compiler %s not supported' % compiler
+    print( 'Sorry, compiler %s not supported' % compiler )
     sys.exit()
 
 for i in range(len(Extensions)):
@@ -68,7 +70,8 @@ for i in range(len(Extensions)):
 
 if compiler == 'ibm':
     for ext in Extensions:
-        ext['cppflags']='-WF,'+string.join(ext['cppflags'].split(),',')
+        #ext['cppflags']='-WF,'+string.join(ext['cppflags'].split(),',')
+        ext['cppflags']='-WF,'+','.join(ext['cppflags'].split())
 
 def getSources(dir):
     # Gets list of source files for extensions
@@ -91,7 +94,7 @@ def buildNeeded(target,src):
     for file in src:
         if newer(file,target):
             return True
-    print 'Extension %s is up to date' % os.path.basename(target)
+    print( 'Extension %s is up to date' % os.path.basename(target) )
     return False
 
 def build_ext(name=None, dir=None, cppflags='', f77flags='', f90flags='',
@@ -103,14 +106,14 @@ def build_ext(name=None, dir=None, cppflags='', f77flags='', f90flags='',
     f77flags = '"%s %s"' % (cppflags,f77flags)
     f90flags = '"%s %s"' % (cppflags,f90flags)
     if buildNeeded(target,src):
-        print '\n Building %s ... \n' % os.path.basename(target)
+        print( '\n Building %s ... \n' % os.path.basename(target) )
         # generate signature file
         #os.system('f2py --overwrite-signature %s -m _%s -h _%s.pyf'%(driver,name,name))
         ff = '%s '*len(src)
         #sformat = '/usr/bin/f2py --overwrite-signature '+ff+' -m _%s -h _%s.pyf'
         sformat = f2py_bin+' --overwrite-signature '+ff+' -m _%s -h _%s.pyf'
         args = src + [name,name]
-        print sformat % tuple(args)
+        print( sformat % tuple(args) )
         os.system(sformat % tuple(args))
         # compile extension
         F2pyCommand = []
@@ -133,11 +136,13 @@ def build_ext(name=None, dir=None, cppflags='', f77flags='', f90flags='',
         F2pyCommand.append('--f77flags=%s' % f77flags)
         F2pyCommand.append('--f90flags=%s' % f90flags)
         F2pyCommand.append('_%s.pyf' % name)
-        F2pyCommand.append('%s' % string.join(src))
-        F2pyCommand = string.join(F2pyCommand)
-        print F2pyCommand
+        #F2pyCommand.append('%s' % string.join(src))
+        #F2pyCommand = string.join(F2pyCommand)
+        F2pyCommand.append('%s' % ' '.join(src))
+        F2pyCommand = ' '.join(F2pyCommand)
+        print( "xxx\t", F2pyCommand )
         if os.system(F2pyCommand) > 0:
-            print '+++ Compilation failed'
+            print( '+++ Compilation failed' )
             sys.exit()
         os.system('mv -f _%s.so lib/disort' % name)
         # os.system('rm -f _%s.pyf' % name)
@@ -155,7 +160,7 @@ DataFiles = []
 for File in glob.glob('test/*.py'):
     if 'CVS' not in File:
         DataFiles.append('../'+File)
-print DataFiles
+print( DataFiles )
 os.chdir('..')
 
 setup(name         = "disort",

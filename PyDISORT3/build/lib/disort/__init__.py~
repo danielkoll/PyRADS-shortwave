@@ -5,6 +5,7 @@ Python wrapper to the DISORT library
 Module '_disort' is auto-generated with f2py (version:2).
 """
 from __version__ import __version__
+#from .__version__ import __version__  # DKOLL: ?
 
 import _disort
 
@@ -203,11 +204,11 @@ def run(dTau, w0=1., iphas=2, gg=0.85,
         prnt = prnt * np.ones(5, dtype='bool')
 
     if verbose > 0:
-        print ' **************************************************************'+\
-            '**************************************'
-        print ' DISORT: Python wrapper to the DISORT radiative transfer solver'
-        print ' **************************************************************'+\
-            '**************************************'
+        print( ' **************************************************************'+\
+            '**************************************')
+        print( ' DISORT: Python wrapper to the DISORT radiative transfer solver')
+        print( ' **************************************************************'+\
+            '**************************************')
 
     rfldir, rfldn, flup, dfdt, uavg, uu, albmed, trnmed = \
            _disort.run(dTau, w0, maxmom, temp, iphas, gg,

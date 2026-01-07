@@ -1,23 +1,30 @@
-# pyDISORT
+#!/usr/bin/env python
+"""
+Python wrapper to the DISORT library
 
-Python wrapper to the DISORT¹ radiative transfer solver.
+Module '_disort' is auto-generated with f2py (version:2).
+"""
+from .__version__ import __version__
 
-(1) K. Stamnes, SC. Tsay, W. Wiscombe and K. Jayaweera, Numerically
-    stable algorithm for discrete-ordinate-method radiative
-    transfer in multiple scattering and emitting layered media,
-    Appl Opt 27 (1988) (12), pp. 2502–2509.
-    
-## Installation
+import _disort
 
-Go to the directory where you have checked out the pyDISORT project and run the following command:
+##########################################################################################################
+#
+# functions
+#
+##########################################################################################################
 
-    sudo python setup.py install
+def run(dTau, w0=1., iphas=2, gg=0.85,
+        umu0=1., phi0=0., albedo=0.1, fbeam=1.0,
+        UsrTau=True, utau=0., UsrAng=True, umu=1.,
+        phi=0., Nstr=32, maxmom=299, lamber=True,
+        onlyFl=False, accur=0., plank=False,
+        temp=300., wvnmlo=999., wvnmhi=1000.,
+        ibcnd=0, fisot=0., btemp=300., ttemp=300.,
+        temis=1., prnt=[False]*5, verbose=1):
 
-## Documentation
+    """
 
-    >>> import disort
-    >>> help(disort.run)
-    
     performs radiative transfer simulations by means of the DISORT RT solver
 
     Parameters
@@ -139,8 +146,9 @@ Go to the directory where you have checked out the pyDISORT project and run the 
         (Default: 0.)
     PRNT : array(dtype=bool)
         Array of LOGICAL print flags causing the following prints
+           ===      ===============================================
            L        quantities printed
-          --        ------------------
+           ===      ===============================================
            1        input variables (except PMOM)
            2        fluxes
            3        intensities at user levels and angles
@@ -149,6 +157,7 @@ Go to the directory where you have checked out the pyDISORT project and run the 
            5        phase function moments PMOM for each layer
                     ( only if PRNT(1) = TRUE, and only for layers
                     with scattering )
+           ===      ===============================================
         (Default: array([False False False False False]))
 
     Returns
@@ -172,21 +181,39 @@ Go to the directory where you have checked out the pyDISORT project and run the 
     --------
     >>> import disort
     >>> D_dir, D_diff, U_up, dFdt, I = disort.run(dTau, ssalb, iphas='Rayleigh')
-    
-## Examples
+    """
 
-See `test` directory.
+    import numpy as np
 
-## TODO
+    if not hasattr(w0,'__iter__'):
+        w0 = w0 * np.ones_like(dTau)
+    if not hasattr(iphas,'__iter__'):
+        iphas = iphas * np.ones_like(dTau)
+    if not hasattr(gg,'__iter__'):
+        gg = gg * np.ones_like(dTau)
+    if not hasattr(temp,'__iter__'):
+        temp = temp * np.ones(len(dTau)+1)
+    if not hasattr(utau,'__iter__'):
+        utau = np.array([utau])
+    if not hasattr(umu,'__iter__'):
+        umu = np.array([umu])
+    if not hasattr(phi,'__iter__'):
+        phi = np.array([phi])
+    if not hasattr(prnt,'__iter__'):
+        prnt = prnt * np.ones(5, dtype='bool')
 
-- The current implementation have the following parameters hardcoded:
+    if verbose > 0:
+        print( ' **************************************************************'+\
+            '**************************************')
+        print( ' DISORT: Python wrapper to the DISORT radiative transfer solver')
+        print( ' **************************************************************'+\
+            '**************************************')
 
-  - MXCLY  = 50   (Max no. of computational layers)
-  - MXULV  = 50   (Max no. of output levels)
-  - MXCMU  = 48   (Max no. of computation polar angles)
-  - MXUMU  = 10   (Max no. of output polar angles)
-  - MXPHI  = 3    (Max no. of output azimuthal angles)
-  - MXSQT  = 1000 (Max no. of square roots of integers (for LEPOLY))
+    rfldir, rfldn, flup, dfdt, uavg, uu, albmed, trnmed = \
+           _disort.run(dTau, w0, maxmom, temp, iphas, gg,
+                       wvnmlo, wvnmhi, UsrTau, utau, Nstr,
+                       UsrAng, umu, phi, ibcnd, fbeam,
+                       umu0, phi0, fisot, lamber, albedo, btemp,
+                       ttemp, temis, plank, onlyFl, accur, prnt)
 
-- These parameters are used as dimensions for array allocation. Allocation
-  should be done dynamically
+    return rfldir, rfldn, flup, dfdt, uavg, uu, albmed, trnmed
