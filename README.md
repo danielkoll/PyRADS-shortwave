@@ -19,10 +19,8 @@ References:
 2) Install the required libraries using conda:
 
 + cd $PyRADS-shortwave
-+ conda create -n pyrads python=3.7
++ conda create -n pyrads python scipy matplotlib gfortran
 + conda activate pyrads
-+ conda install scipy
-+ conda install matplotlib
 
 3) Manually compile the MTCKD model:
 - cd $PyRADS-shortwave/DATA/MT_CKD_continuum/cntnm.H2O_N2/build
