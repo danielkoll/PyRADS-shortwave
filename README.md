@@ -19,7 +19,7 @@ References:
 2) Install the required libraries using conda:
 
 + cd $PyRADS-shortwave
-+ conda create -n pyrads python numpy scipy matplotlib gfortran
++ conda create -n pyrads python=3.7 numpy scipy matplotlib gfortran
 + conda activate pyrads
 
 3) Manually compile the MTCKD model:
