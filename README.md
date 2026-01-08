@@ -24,8 +24,8 @@ References:
 
 3) Manually compile the MTCKD model:
 - cd $PyRADS-shortwave/DATA/MT_CKD_continuum/cntnm.H2O_N2/build
+- (*DEFAULT* on a Mac, using gfortran installed with conda) make -f make_cntnm osxGNUCONDAdbl
 - (on a Mac) make -f make_cntnm osxGNUdbl
-- (on a Mac if you are using gfortran installed with conda) make -f make_cntnm osxGNUCONDAdbl
 - (on Linux) open the file "README.build_instructions" and find the command for your platform. For example, if you are using gfortran,
   - make -f make_cntnm linuxGNUdbl
   - After compiling, you will find a database named with "cntnm_v3.2_linux_gnu_dbl" in PyRADS-shortwave/DATA/MT_CKD_continuum/cntnm.H2O_N2
